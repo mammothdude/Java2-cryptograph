@@ -55,7 +55,8 @@ public class CryptoData {
             String addr = "https://min-api.cryptocompare.com/data/histoday?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym=BTC&limit=10&tryConversion=false&tsym=USD";
             /* I put a single address here to see if it would work, it isn't
             * JavaFX is acting funny with the GSON library. I added it, but it still wouldn't let me
-            * "import class". I added the import statements at top manually, I still can't get data. */
+            * "import class". I added the import statements at top manually, but I still can't get data.
+            * I can see and println the data using a non-JavaFX project. */
 
             try {
                 URL address = new URL(addr);
@@ -76,11 +77,10 @@ public class CryptoData {
                     Double high = entry.getValue().getAsDouble();
                     Double low = entry.getValue().getAsDouble();
 
-                    // convert the date to something readable...
-                    //Date date = new Date();
-                    //date.setTime((long)time*1000);
+                    Date date = new Date();                               // convert the date to something readable...
+                    date.setTime((long)time*1000);
 
-                    System.out.println(time + " " + open);                 //a test to see if anything is coming through - nothing?
+                    System.out.println(date + " " + open);                 //a test to see if anything is coming through - nothing?
                 }
                 return value;
             } catch (Exception e) {
