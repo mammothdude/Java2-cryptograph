@@ -5,6 +5,7 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
 import java.io.InputStreamReader;
@@ -53,10 +54,6 @@ public class CryptoData {
 
         public static ObservableList<CryptoData> getCryptoData () {
             String addr = "https://min-api.cryptocompare.com/data/histoday?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym=BTC&limit=10&tryConversion=false&tsym=USD";
-            /* I put a single address here to see if it would work, it isn't
-            * JavaFX is acting funny with the GSON library. I added it, but it still wouldn't let me
-            * "import class". I added the import statements at top manually, but I still can't get data.
-            * I can see and println the data using a non-JavaFX project. */
 
             try {
                 URL address = new URL(addr);
@@ -64,11 +61,18 @@ public class CryptoData {
 
                 Gson gson = new Gson();
                 JsonObject root = gson.fromJson(reader, JsonObject.class);
-                JsonObject data = root.getAsJsonObject("Data");
+                JsonArray data = root.getAsJsonArray("Data");
 
-                ObservableList<CryptoData> value = FXCollections.observableArrayList();
+                ObservableList<CryptoData> values = FXCollections.observableArrayList();
+                Set<Map.Entry<String, JsonElement>> entrySet = data.getAsJsonObject().entrySet();
+
+                /*JsonObject data = root.getAsJsonObject("Data");                   // spent a long time before I figured out the data was in an array
+
+                ObservableList<CryptoData> values = FXCollections.observableArrayList();
 
                 Set<Map.Entry<String, JsonElement>> entrySet = data.entrySet();
+
+                 */
 
                 for (Map.Entry<String, JsonElement> entry : entrySet) {
                     Long time = entry.getValue().getAsLong();
@@ -82,7 +86,7 @@ public class CryptoData {
 
                     System.out.println(date + " " + open);                 //a test to see if anything is coming through - nothing?
                 }
-                return value;
+                return values;
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -14,25 +14,29 @@ public class Controller {
 
     public String url;
 
-    @FXML
     protected void loadDay () {
         url = "https://min-api.cryptocompare.com/data/histoday?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym=BTC&limit=10&tryConversion=false&tsym=USD";
         this.preDraw();
         CompletableFuture<ObservableList<CryptoData>> future = new CompletableFuture<>();
         future.supplyAsync(this::loadData).thenApply(this::setupChartValues).thenAccept(this::drawChart);
     }
-    @FXML
+
     protected void loadHour () {
         url = "https://min-api.cryptocompare.com/data/histohour?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym=BTC&limit=10&tryConversion=false&tsym=USD";
-
+        this.preDraw();
+        CompletableFuture<ObservableList<CryptoData>> future = new CompletableFuture<>();
+        future.supplyAsync(this::loadData).thenApply(this::setupChartValues).thenAccept(this::drawChart);
     }
-    @FXML
+
     protected void loadMinute () {
         url = "https://min-api.cryptocompare.com/data/histominute?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym=BTC&limit=10&tryConversion=false&tsym=USD";
-
+        this.preDraw();
+        CompletableFuture<ObservableList<CryptoData>> future = new CompletableFuture<>();
+        future.supplyAsync(this::loadData).thenApply(this::setupChartValues).thenAccept(this::drawChart);
     }
 
     /*
+    *       Got stuck here:
     *       before I could work on passing button url to the CryptoData class I found that
     *       JavaFX was refusing to let me add the GSON library to this project (or
     *       any JavaFX project I tried.)
