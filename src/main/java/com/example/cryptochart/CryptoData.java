@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
@@ -52,6 +53,9 @@ public class CryptoData {
 
         public static ObservableList<CryptoData> getCryptoData () {
             String addr = "https://min-api.cryptocompare.com/data/histoday?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym=BTC&limit=10&tryConversion=false&tsym=USD";
+            /* I put a single address here to see if it would work, it isn't
+            * JavaFX is acting funny with the GSON library. I added it, but it still wouldn't let me
+            * "import class". I added the import statements at top manually, I still can't get data. */
 
             try {
                 URL address = new URL(addr);
@@ -72,7 +76,11 @@ public class CryptoData {
                     Double high = entry.getValue().getAsDouble();
                     Double low = entry.getValue().getAsDouble();
 
-                    System.out.println(time);                 //a test to see if anything is coming through - nothing?
+                    // convert the date to something readable...
+                    //Date date = new Date();
+                    //date.setTime((long)time*1000);
+
+                    System.out.println(time + " " + open);                 //a test to see if anything is coming through - nothing?
                 }
                 return value;
             } catch (Exception e) {

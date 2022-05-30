@@ -24,12 +24,11 @@ public class Controller {
         url = "https://min-api.cryptocompare.com/data/histominute?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym=BTC&limit=10&tryConversion=false&tsym=USD";
     }
 
-    /*public void drawChart () {
-        line_chart.getXAxis().setLabel("Time");
-        line_chart.getYAxis().setLabel("Value");
-    }
-
-     */
+    /*
+    *       before I could work on passing button url to the CryptoData class I found that
+    *       JavaFX was refusing to let me add the GSON library to this project (or
+    *       any JavaFX project I tried.)
+    */
 
     public ObservableList<CryptoData> loadData () {
         ObservableList<CryptoData> values = CryptoData.getCryptoData();
