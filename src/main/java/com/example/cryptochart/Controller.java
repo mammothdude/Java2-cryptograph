@@ -14,20 +14,30 @@ public class Controller {
     @FXML
     protected void loadDay () {
         url = "https://min-api.cryptocompare.com/data/histoday?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym=BTC&limit=10&tryConversion=false&tsym=USD";
+        this.setupChartValues();
+        this.loadData();
+        this.drawChart();
     }
     @FXML
     protected void loadHour () {
         url = "https://min-api.cryptocompare.com/data/histohour?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym=BTC&limit=10&tryConversion=false&tsym=USD";
+        this.setupChartValues();
+        this.loadData();
+        this.drawChart();
     }
     @FXML
     protected void loadMinute () {
         url = "https://min-api.cryptocompare.com/data/histominute?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym=BTC&limit=10&tryConversion=false&tsym=USD";
+        this.setupChartValues();
+        this.loadData();
+        this.drawChart();
     }
 
     /*
     *       before I could work on passing button url to the CryptoData class I found that
     *       JavaFX was refusing to let me add the GSON library to this project (or
     *       any JavaFX project I tried.)
+    *       I can println JSON data from a regular Java, but not JavaFX projects.
     */
 
     public ObservableList<CryptoData> loadData () {
@@ -35,7 +45,7 @@ public class Controller {
         return values;
     }
 
-    public XYChart.Series<Long, Double> setupChartValues(ObservableList<CryptoData> values) {
+    public XYChart.Series<Long, Double> setupChartValues() {
         XYChart.Series<Long, Double> series = new XYChart.Series<>();
         Long time = 0L;
         Double open = 0.0;
@@ -45,10 +55,10 @@ public class Controller {
         return series;
     }
 
-    public void drawChart (XYChart.Series<Long, Float> ch) {
+    public void drawChart() {
         line_chart.getXAxis().setLabel("Time");
         line_chart.getYAxis().setLabel("Value");
-        line_chart.getData().setAll(ch);
+        line_chart.getData().setAll();
     }
 
 }
